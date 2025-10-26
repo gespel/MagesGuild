@@ -6,3 +6,6 @@ commands:
   mage:
     description: enables mage mode
     usage: mage
+  home:
+    description: teleports home
+    usage: home
