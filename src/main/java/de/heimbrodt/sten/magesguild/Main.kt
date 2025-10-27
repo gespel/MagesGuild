@@ -13,8 +13,7 @@ class Main : JavaPlugin(), CommandExecutor {
          */
         val guildPath = dataFolder.toPath()
         logger.info("Found Mages Guild Path.")
-        val sl = SpellLoader()
-        for (s in sl.loadSpells("${guildPath}/spells.yaml")) {
+        for (s in SpellLoader.loadSpells("${guildPath}/spells.yaml")) {
             LoadedSpells.loadedSpells[s.name] = s
         }
         logger.info("Loaded ${LoadedSpells.loadedSpells.size} spells.")

@@ -5,16 +5,18 @@ import org.yaml.snakeyaml.Yaml
 import java.io.File
 
 class SpellLoader {
-
-    fun loadSpells(name: String): List<Spell> {
-        val yaml = Yaml()
-        val data = yaml.load<List<Map<String, Any>>>(File(name).readText())
-        val spells = data.map {
-            Spell(it["name"] as String,
-                it["manaCost"] as Int,
-                it["description"] as String
-            )
+    companion object {
+        fun loadSpells(name: String): List<Spell> {
+            val yaml = Yaml()
+            val data = yaml.load<List<Map<String, Any>>>(File(name).readText())
+            val spells = data.map {
+                Spell(it["name"] as String,
+                    it["manaCost"] as Int,
+                    it["description"] as String
+                )
+            }
+            return spells
         }
-        return spells
     }
+
 }
