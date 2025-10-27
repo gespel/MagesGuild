@@ -17,6 +17,9 @@ class Main : JavaPlugin(), CommandExecutor {
             logger.info("No Mages Guild Path exists. Creating a new instance...")
             Path("plugins/magesguild").createDirectories()
         }
+        else {
+            logger.info("Found Mages Guild Path.")
+        }
 
         logger.info("MagesGuild Plugin Enabled")
         getCommand("mage")!!.setExecutor(this)
