@@ -1,9 +1,9 @@
 package de.heimbrodt.sten.magesguild
 
-import de.heimbrodt.sten.magesguild.spells.LoadedSpells
 import de.heimbrodt.sten.magesguild.spells.SpellLoader
 import org.bukkit.command.CommandExecutor
 import org.bukkit.plugin.java.JavaPlugin
+import de.heimbrodt.sten.magesguild.spells.LoadedSpells
 
 
 class Main : JavaPlugin(), CommandExecutor {
