@@ -6,6 +6,9 @@
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="MagesGuild" />
+      <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:2.2.0" />
+      <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.2.0" />
+      <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.0" />
     </root>
   </artifact>
 </component>
