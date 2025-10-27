@@ -1,5 +1,6 @@
 package de.heimbrodt.sten.magesguild
 
+import de.heimbrodt.sten.magesguild.spells.LoadedSpells.Companion.loadedSpells
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.Command
@@ -18,6 +19,9 @@ class Commands : CommandExecutor {
             }
             else {
                 sender.sendMessage("Enabled Spells are:")
+                for (spell in loadedSpells.values) {
+                    sender.sendMessage("${spell.name} - ${spell.description}")
+                }
             }
         }
         if (cmdName.equals("home", true)) {

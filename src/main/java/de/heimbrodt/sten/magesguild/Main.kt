@@ -1,27 +1,28 @@
 package de.heimbrodt.sten.magesguild
 
-import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.command.Command
+import de.heimbrodt.sten.magesguild.spells.LoadedSpells
+import de.heimbrodt.sten.magesguild.spells.SpellLoader
 import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
-import kotlin.io.path.Path
-import kotlin.io.path.createDirectories
-import kotlin.io.path.exists
+
 
 class Main : JavaPlugin(), CommandExecutor {
     override fun onEnable() {
-        if (!Path("magesguild").exists()) {
-            logger.info("No Mages Guild Path exists. Creating a new instance...")
-            Path("plugins/magesguild").createDirectories()
+        /*
+            Loading Spells.
+         */
+        val guildPath = dataFolder.toPath()
+        logger.info("Found Mages Guild Path.")
+        val sl = SpellLoader()
+        for (s in sl.loadSpells("${guildPath}/spells.yaml")) {
+            LoadedSpells.loadedSpells[s.name] = s
         }
-        else {
-            logger.info("Found Mages Guild Path.")
-        }
-
+        logger.info("Loaded ${LoadedSpells.loadedSpells.size} spells.")
         logger.info("MagesGuild Plugin Enabled")
+
+        /*
+            Registering Commands
+         */
         val c = Commands()
         getCommand("mage")!!.setExecutor(c)
         getCommand("home")!!.setExecutor(c)
