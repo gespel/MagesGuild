@@ -16,6 +16,12 @@ class Commands : CommandExecutor {
         if (cmdName.equals("mage", true)) {
             if (sender is Player) {
                 sender.sendMessage("Enabling Mage Mode...")
+                if (args.length == 2) {
+                    if (args[0].equals("spells")) {
+                        if (args[1].equals("list", true)) {
+			}    
+                    }
+                
             }
             else {
                 sender.sendMessage("Enabled Spells are:")
@@ -33,6 +39,7 @@ class Commands : CommandExecutor {
                 sender.sendMessage("You are no player you dum dum...")
             }
         }
+        
         return true
     }
 }
