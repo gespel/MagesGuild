@@ -39,6 +39,12 @@ class Commands : CommandExecutor {
                 sender.sendMessage("You are no player you dum dum...")
             }
         }
+        if (cmdName.equals("village", true)) {
+            if (sender is Player) {
+                sender.sendMessage("Teleporting to village...")
+                sender.teleport(Location(Bukkit.getWorld("world"), 1715.0, 64.0, 4151.0))
+            }
+        }
         
         return true
     }

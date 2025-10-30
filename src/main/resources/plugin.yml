@@ -9,3 +9,6 @@ commands:
   home:
     description: teleports home
     usage: home
+  village:
+    description: teleports to the village
+    usage: village
