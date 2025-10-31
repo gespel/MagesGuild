@@ -6,5 +6,7 @@ import kotlinx.serialization.Serializable
 data class Spell (
     val name: String,
     val manaCost: Int,
-    val description: String
+    val description: String,
+    val damage: Int,
+    val range: Int
 )

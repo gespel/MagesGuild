@@ -1,6 +1,7 @@
 package de.heimbrodt.sten.magesguild
 
 import de.heimbrodt.sten.magesguild.spells.LoadedSpells.Companion.loadedSpells
+import de.heimbrodt.sten.magesguild.spells.SpellItem
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.Command
@@ -15,10 +16,14 @@ class Commands : CommandExecutor {
 
         if (cmdName.equals("mage", true)) {
             if (sender is Player) {
-                sender.sendMessage("Enabling Mage Mode...")
-                if (args.size == 2) {
-                    if (args[0].equals("spells")) {
-                        if (args[1].equals("list", true)) {
+                //sender.sendMessage("Enabling Mage Mode...")
+                if (args.size == 3) {
+                    if (args[0].equals("spell", true)) {
+                        if (args[1].equals("add", true)) {
+                            sender.sendMessage("Adding Spell ${args[2]}")
+                            val spell = loadedSpells[args[2].lowercase()]!!
+                            val spellItem = SpellItem(spell)
+                            sender.inventory.addItem(spellItem.item)
                         }
                     }
                 }
