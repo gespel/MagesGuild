@@ -12,7 +12,9 @@ class SpellLoader {
             val spells = data.map {
                 Spell(it["name"] as String,
                     it["manaCost"] as Int,
-                    it["description"] as String
+                    it["description"] as String,
+                    it["damage"] as Int,
+                    it["range"] as Int,
                 )
             }
             return spells

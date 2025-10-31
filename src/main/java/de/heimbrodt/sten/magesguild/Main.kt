@@ -24,9 +24,9 @@ class Main : JavaPlugin(), CommandExecutor, Listener {
         val guildPath = dataFolder.toPath()
         logger.info("Found Mages Guild Path.")
         for (s in SpellLoader.loadSpells("${guildPath}/spells.yaml")) {
-            LoadedSpells.loadedSpells[s.name.lowercase()] = s
+            loadedSpells[s.name.lowercase()] = s
         }
-        logger.info("Loaded ${LoadedSpells.loadedSpells.size} spells.")
+        logger.info("Loaded ${loadedSpells.size} spells.")
         logger.info("MagesGuild Plugin Enabled")
 
         /*
@@ -60,7 +60,7 @@ class Main : JavaPlugin(), CommandExecutor, Listener {
 
         if ("fireball" == meta.displayName.lowercase()) {
             val spell = loadedSpells[meta.displayName.lowercase()]!!
-            val spellEffector: SpellEffector = SpellEffector(spell)
+            val spellEffector = SpellEffector(spell, event)
             event.player.sendMessage("Casting ${spell.name}")
             spellEffector.activate()
         }
