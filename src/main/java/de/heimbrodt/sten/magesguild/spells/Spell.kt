@@ -10,4 +10,5 @@ data class Spell (
     val damage: Int,
     val range: Int,
     val element: String,
+    val type: String,
 )

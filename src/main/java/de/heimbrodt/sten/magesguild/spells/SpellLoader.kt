@@ -15,7 +15,8 @@ class SpellLoader {
                     it["description"] as String,
                     it["damage"] as Int,
                     it["range"] as Int,
-                    it["element"] as String
+                    it["element"] as String,
+                    it["type"] as String,
                 )
             }
             return spells

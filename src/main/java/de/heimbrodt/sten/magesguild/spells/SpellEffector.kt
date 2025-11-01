@@ -23,21 +23,33 @@ class SpellEffector {
         val block = loc.block
 
         val above = loc.add(0.0, 1.0, 0.0).block
-        if (spell!!.element.equals("fire", true)) {
-            if (above.type == Material.AIR) {
-                above.type = Material.FIRE
-            }
+        if (spell!!.type.equals("damage", true)) {
+            if (spell!!.element.equals("fire", true)) {
+                if (above.type == Material.AIR) {
+                    above.type = Material.FIRE
+                }
 
-            block.world.playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0)
-            block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
-        }
-        if(spell!!.element.equals("ice", true)) {
-            if (above.type == Material.AIR) {
-                above.type = Material.SNOW
+                block.world.playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0)
+                block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
             }
-            block.world.playEffect(loc, Effect.POTION_BREAK, 0)
-            block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
+            if(spell!!.element.equals("ice", true)) {
+                if (above.type == Material.AIR) {
+                    above.type = Material.SNOW
+                }
+                block.world.playEffect(loc, Effect.POTION_BREAK, 0)
+                block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
+            }
         }
+
+        if (spell!!.type.equals("water_breathing", true)) {
+            if (spell!!.element.equals("water", true)) {
+                if (spell!!.type.equals("water_breathing", true)) {
+                    val p = event!!.player
+                    p.remainingAir = 300
+                }
+            }
+        }
+
 
         Bukkit.getScheduler().runTaskLater(plugin!!, Runnable {
             onComplete()
