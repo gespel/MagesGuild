@@ -46,19 +46,15 @@ class Main : JavaPlugin(), CommandExecutor, Listener {
     @EventHandler
     fun onRightClick(event: PlayerInteractEvent) {
         // Prüfen ob Rechtsklick
-        val action: Action = event.getAction()
-        if (action !== Action.RIGHT_CLICK_AIR && action !== Action.RIGHT_CLICK_BLOCK) {
-            return
-        }
 
         val item = event.getItem()
-        if (item == null || item.getType() != Material.BOOK) {
+        if (item == null || item.type != Material.BOOK || event.action != Action.RIGHT_CLICK_BLOCK) {
             return
         }
 
         val meta = item.itemMeta ?: return
 
-        if ("fireball" == meta.displayName.lowercase()) {
+        if (meta.displayName.lowercase() in loadedSpells) {
             val spell = loadedSpells[meta.displayName.lowercase()]!!
             val spellEffector = SpellEffector(spell, event)
             event.player.sendMessage("Casting ${spell.name}")
