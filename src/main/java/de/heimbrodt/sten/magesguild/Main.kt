@@ -13,9 +13,11 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.UUID
 
 
 class Main : JavaPlugin(), CommandExecutor, Listener {
+    private val castingPlayers = mutableSetOf<UUID>()
     override fun onEnable() {
         /*
             Loading Spells.
@@ -45,20 +47,28 @@ class Main : JavaPlugin(), CommandExecutor, Listener {
 
     @EventHandler
     fun onRightClick(event: PlayerInteractEvent) {
-        // Prüfen ob Rechtsklick
-
         val item = event.getItem()
-        if (item == null || item.type != Material.BOOK || event.action != Action.RIGHT_CLICK_BLOCK) {
+        if (item == null || item.type != Material.BOOK || (event.action != Action.RIGHT_CLICK_BLOCK && event.action != Action.PHYSICAL)) {
+            return
+        }
+
+        if (castingPlayers.contains(event.player.uniqueId)) {
+            //event.player.sendMessage("§cDu bist bereits am Zaubern!")
             return
         }
 
         val meta = item.itemMeta ?: return
 
         if (meta.displayName.lowercase() in loadedSpells) {
+            castingPlayers.add(event.player.uniqueId)
             val spell = loadedSpells[meta.displayName.lowercase()]!!
-            val spellEffector = SpellEffector(spell, event)
+            val spellEffector = SpellEffector(this, spell, event)
             event.player.sendMessage("Casting ${spell.name}")
-            spellEffector.activate()
+
+            spellEffector.activate {
+               castingPlayers.remove(event.player.uniqueId)
+            }
+
         }
     }
 

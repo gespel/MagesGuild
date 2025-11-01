@@ -8,5 +8,6 @@ data class Spell (
     val manaCost: Int,
     val description: String,
     val damage: Int,
-    val range: Int
+    val range: Int,
+    val element: String,
 )
