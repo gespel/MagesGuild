@@ -4,6 +4,7 @@ import org.bukkit.Bukkit
 import org.bukkit.Effect
 import org.bukkit.Material
 import org.bukkit.Sound
+import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
@@ -19,27 +20,30 @@ class SpellEffector {
     }
 
     fun activate(onComplete: () -> Unit) {
-        val loc = event!!.clickedBlock!!.location
-        val block = loc.block
+        if (event!!.action != Action.RIGHT_CLICK_AIR) {
+            val loc = event!!.clickedBlock!!.location
+            val block = loc.block
 
-        val above = loc.add(0.0, 1.0, 0.0).block
-        if (spell!!.type.equals("damage", true)) {
-            if (spell!!.element.equals("fire", true)) {
-                if (above.type == Material.AIR) {
-                    above.type = Material.FIRE
-                }
+            val above = loc.add(0.0, 1.0, 0.0).block
+            if (spell!!.type.equals("damage", true)) {
+                if (spell!!.element.equals("fire", true)) {
+                    if (above.type == Material.AIR) {
+                        above.type = Material.FIRE
+                    }
 
-                block.world.playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0)
-                block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
-            }
-            if(spell!!.element.equals("ice", true)) {
-                if (above.type == Material.AIR) {
-                    above.type = Material.SNOW
+                    block.world.playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0)
+                    block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
                 }
-                block.world.playEffect(loc, Effect.POTION_BREAK, 0)
-                block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
+                if(spell!!.element.equals("ice", true)) {
+                    if (above.type == Material.AIR) {
+                        above.type = Material.SNOW
+                    }
+                    block.world.playEffect(loc, Effect.POTION_BREAK, 0)
+                    block.world.playSound(loc, Sound.ITEM_FLINTANDSTEEL_USE, 1.0f, 1.0f)
+                }
             }
         }
+
 
         if (spell!!.type.equals("water_breathing", true)) {
             if (spell!!.element.equals("water", true)) {

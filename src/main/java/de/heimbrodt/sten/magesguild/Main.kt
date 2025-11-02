@@ -47,28 +47,30 @@ class Main : JavaPlugin(), CommandExecutor, Listener {
 
     @EventHandler
     fun onRightClick(event: PlayerInteractEvent) {
-        val item = event.getItem()
-        if (item == null || item.type != Material.BOOK || (event.action != Action.RIGHT_CLICK_BLOCK && event.action != Action.PHYSICAL)) {
-            return
-        }
-
-        if (castingPlayers.contains(event.player.uniqueId)) {
-            //event.player.sendMessage("§cDu bist bereits am Zaubern!")
-            return
-        }
-
-        val meta = item.itemMeta ?: return
-
-        if (meta.displayName.lowercase() in loadedSpells) {
-            castingPlayers.add(event.player.uniqueId)
-            val spell = loadedSpells[meta.displayName.lowercase()]!!
-            val spellEffector = SpellEffector(this, spell, event)
-            event.player.sendMessage("Casting ${spell.name}")
-
-            spellEffector.activate {
-               castingPlayers.remove(event.player.uniqueId)
+        if (event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
+            val item = event.getItem()
+            if (item == null || item.type != Material.BOOK) {
+                return
             }
 
+            if (castingPlayers.contains(event.player.uniqueId)) {
+                //event.player.sendMessage("§cDu bist bereits am Zaubern!")
+                return
+            }
+
+            val meta = item.itemMeta ?: return
+
+            if (meta.displayName.lowercase() in loadedSpells) {
+                castingPlayers.add(event.player.uniqueId)
+                val spell = loadedSpells[meta.displayName.lowercase()]!!
+                val spellEffector = SpellEffector(this, spell, event)
+                event.player.sendMessage("Casting ${spell.name}")
+
+                spellEffector.activate {
+                    castingPlayers.remove(event.player.uniqueId)
+                }
+
+            }
         }
     }
 
